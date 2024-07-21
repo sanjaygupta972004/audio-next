@@ -1,11 +1,11 @@
-
+import HeroSection from "@/components/HeroSection";
 
 export default function Home() {
   return (
     <>
-      <h3 className=" text-xl text-center mt-5">
-        chai aur code
-      </h3>
+      <main className=" min-h-screen bg-black/[.96] antialiased bg-grid-white/[0.2] flex items-center justify-end ">
+        <HeroSection/>
+      </main>
      </>
   );
 }
