@@ -1,6 +1,7 @@
 import React from 'react'
 import Link from 'next/link'
 
+
 export default function Footer() {
   return (
      <footer className=' bg-black text-gray-300 py-10 '>

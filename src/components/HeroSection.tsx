@@ -8,7 +8,7 @@ export default function HeroSection() {
     <div className=' h-auto md:h-[160px] w-full rounded-md flex justify-center items-center flex-col 
      relative mx-auto bottom-12 md:bottom-11 gap-5 lg:gap-6 '>
        <Spotlight className=' w-[2px] h-fit right-5'
-       fill='white' />
+       fill='gray' />
      <div className=' p-4 relative z-20  w-full text-center'>
        <h1 className=' mt-15 lg:mt-6 md:mt-0 text-3xl md:text-6xl font-semibold bg-clip-text text-transparent bg-gradient-to-b from-neutral-100 to-neutral-500   ' >
          Master the  art of Music
