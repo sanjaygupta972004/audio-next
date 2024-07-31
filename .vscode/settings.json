@@ -1,6 +1,10 @@
 {
         "cSpell.words": [
+                "maxlength",
+                "nextauth",
                 "scroller",
+                "signin",
+                "signout",
                 "tailwindcss"
         ]
 }
