@@ -21,8 +21,8 @@ export default function RootLayout({
     <html lang="en" className="dark">
       <body className={inter.className}>
         <AuthProvider>
-        <div className=" flex justify-center items-center relative w-full ">
-           <Navbar className="top-10"/>
+        <div className="flex justify-center items-center relative w-full ">
+           <Navbar className="top-7 md:top-10 left-0 absolute"/>
         </div>
         {children}
         </AuthProvider>

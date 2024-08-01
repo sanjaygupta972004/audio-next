@@ -1,6 +1,8 @@
-
+import SignInForm from "@/components/SignInForm"
 export default function page() {
   return (
-    <div> denied CoursePage</div>
+    <>
+    <SignInForm/>
+    </>
   )
 }

@@ -14,16 +14,9 @@ const connection : dbConnection = {}
    }
    try {
         
-        const opts = {
-                useNewUrlParser: true,
-                useUnifiedTopology: true,
-                bufferCommands: false,
-                bufferMaxEntries: 0,
-                useFindAndModify: false,
-                useCreateIndex: true,
-        }
+    
 
-   const db = await mongoose.connect(process.env.MONGOOSE_URI || "", opts)
+   const db = await mongoose.connect(process.env.MONGOOSE_URI || "", )
     console.log("database connected")
     connection.isConnected = db.connections[0].readyState
    } catch (error) {

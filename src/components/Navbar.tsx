@@ -11,12 +11,12 @@ export default  function Navbar({ className }: { className?: string }) {
   return (
         <div  className={cn("fixed top-10 inset-x-0 max-w-2xl mx-auto z-50", className)} >
                 <Menu setActive={setActive}>
-                    <Link href={"/"} className=" text-xl hover:underline peer-hover:underline-offset-1 hover:opacity-90 ">
+                    <Link href={"/"} className=" md:text-[18px] hover:underline peer-hover:underline-offset-1 hover:opacity-90 ">
                       <MenuItem   setActive={setActive} active={active} item="Home" >
                       </MenuItem>
                     </Link>
 
-                  <div className=" text-xl hover:underline peer-hover:underline-offset-1 hover:opacity-90 ">
+                  <div className=" md:text-[18px] hover:underline peer-hover:underline-offset-1 hover:opacity-90 ">
                   <MenuItem  setActive={ setActive} active={active} item = "Our Courses"  >
                       <div className="flex flex-col space-y-4 text-sm ">
                        <HoveredLink href="/courses">All Courses</HoveredLink>
@@ -28,16 +28,16 @@ export default  function Navbar({ className }: { className?: string }) {
                     </MenuItem>
                   </div>
 
-                    <Link href={"contact"} className=" text-xl hover:underline peer-hover:underline-offset-1 hover:opacity-90 ">
+                    <Link href={"contact"} className=" md:text-[18px] hover:underline peer-hover:underline-offset-1 hover:opacity-90 ">
                     <MenuItem setActive={setActive} active={active} item = "Contact Us"/>
                     </Link>
                     {
                       session ? (
-                         <Link href={"api/auth/signout?callbackUrl=/"} className=" text-xl hover:underline peer-hover:underline-offset-1 hover:opacity-90" >
+                         <Link href={"api/auth/signout?callbackUrl=/"} className="md:text-[18px] hover:underline peer-hover:underline-offset-1 hover:opacity-90" >
                             <MenuItem setActive={setActive} active={active} item = "Sign Out"/>
                          </Link> 
                       ):(
-                          <Link href={"api/auth/signin"} className=" text-xl hover:underline peer-hover:underline-offset-1 hover:opacity-90">
+                          <Link href={"api/auth/signin"} className=" md:text-[18px] hover:underline peer-hover:underline-offset-1 hover:opacity-90">
                              <MenuItem setActive={setActive} active={active} item = "Sign In"/>
                           </Link>
                       )
