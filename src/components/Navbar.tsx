@@ -27,9 +27,11 @@ export default  function Navbar({ className }: { className?: string }) {
                       </div>
                     </MenuItem>
                   </div>
-
                     <Link href={"contact"} className=" md:text-[18px] hover:underline peer-hover:underline-offset-1 hover:opacity-90 ">
                     <MenuItem setActive={setActive} active={active} item = "Contact Us"/>
+                    </Link>
+                    <Link href={"register"} className=" md:text-[18px] hover:underline peer-hover:underline-offset-1 hover:opacity-90 ">
+                    <MenuItem setActive={setActive} active={active} item = "Register"/>
                     </Link>
                     {
                       session ? (
@@ -43,8 +45,6 @@ export default  function Navbar({ className }: { className?: string }) {
                       )
                     }
                 </Menu>
-          
-
         </div>
   )
 }

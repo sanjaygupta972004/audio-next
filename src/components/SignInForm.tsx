@@ -1,6 +1,6 @@
 "use client"
-import { fork } from 'child_process'
 import React,{FormEvent,ChangeEvent, useState} from 'react'
+import { useRouter } from 'next/navigation'
 
  interface IFormData {
   username:string,
@@ -14,6 +14,7 @@ export default function SignInForm() {
     email:""
    })
    const [error, setError] = useState<string>("")
+   const router = useRouter()
 
   const handlerChange = (e:ChangeEvent<HTMLInputElement>)=>{
     const {value,name} = e.target;
@@ -29,13 +30,13 @@ export default function SignInForm() {
    e.preventDefault()
    setError("")
    if(formData.email=== "" || formData.password === "" || formData.username === "" ){
-     setError("All fields required for crate account")
+     setError("All fields required to create an account")
      return
    }
     
    try {
 
-    const res = await fetch("",{
+    const res = await fetch("/api/user",{
       method:"POST",
       headers:{
        'Content-Type':"application/json"
@@ -44,9 +45,14 @@ export default function SignInForm() {
 
     })
     const data = await res.json()
-    if(!res.ok){
+    console.log(data)
+    if(res.ok){
+      router.push("/api/auth/signin")
+    }else{
       setError(data.message)
     }
+
+    return data
     
    } catch (error) {
      console.log("Something went wrong while submitting form",error)
@@ -60,14 +66,14 @@ export default function SignInForm() {
             <div className=' w-full px-2 py-1'> 
                <h3 className=' text-center text-xl md:text-2xl tracking-tighter text-normal bg-clip-text bg-gradient-to-r from-slate-100 to-slate-400 text-transparent'> Welcome to Audio-next for Continue Pls <span className='text-blue-500 underline underline-offset-3 uppercase px-1 py-[2px] z-50 '> Register </span>  your Account</h3>
             </div>
-            <form action="" onSubmit={handlerSubmit} className=' flex flex-col items-center justify-center gap-10  w-full'>
-              <div className=' w-full pl-3 shadow-md bg-slate-800  flex items-start justify-start flex-col  '>
+            <form action="" onSubmit={handlerSubmit} className=' flex flex-col items-center justify-center gap-10 w-full'>
+              <div className=' w-full pl-3 shadow-md bg-slate-800  flex items-start justify-start flex-col   '>
                 <label htmlFor="username" className=' w-1/4 border border-t-0 border-r-1 border-l-1  border-spacing-5 rounded-lg md:px-5 px-[1px] text-[18px]'>Username</label>
                 <input type="text"
                       placeholder='username'
                       name='username'
                       onChange={handlerChange}
-                      className='w-full h-8 rounded-md pl-2 mt-[6px]'
+                      className='w-full h-8 rounded-md pl-2 mt-[6px] text-gray-600'
                  />
               </div>
               <div className=' w-full pl-3 shadow-md bg-slate-800  flex items-start justify-start flex-col  '>
@@ -76,7 +82,7 @@ export default function SignInForm() {
                       placeholder='email'
                       name='email'
                       onChange={handlerChange}
-                        className='w-full h-8 rounded-md pl-2 mt-[6px]'
+                        className='w-full h-8 rounded-md pl-2 mt-[6px] text-gray-600'
                  />
               </div>
               <div className=' w-full pl-3 shadow-md bg-slate-800  flex items-start justify-start flex-col  '>
@@ -85,7 +91,7 @@ export default function SignInForm() {
                       placeholder='password'
                       name='password'
                       onChange={handlerChange}
-                      className='w-full h-8 rounded-md pl-2 mt-[6px]'
+                      className='w-full h-8 rounded-md pl-2 mt-[6px] text-gray-600'
                  />
               </div>
                 <div className='my-3 bg-blue-700 w-full rounded-md hover:bg-blue-600 hover:rounded-lg active:bg-blue-800'>
