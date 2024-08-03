@@ -3,6 +3,8 @@ import React from 'react'
 import Image from 'next/image'
 
 import CourseData from "@/data/course_data.json"
+import { useSession } from 'next-auth/react'
+import { redirect } from 'next/navigation'
 
 
 interface Courses {
@@ -17,8 +19,16 @@ interface Courses {
 }
 
  export default function CoursePage() {
-   const courses = CourseData.courses
+   const courses = CourseData.courses;
+   const { data: session, status } = useSession({
+    required:true,
+    onUnauthenticated() {
+      redirect("/api/auth/signin?callbackUrl=/courses")
+    },
+   })
+     
   return (
+    
      <div className=' py-10 mx-auto min-h-screen w-full flex items-center flex-col justify-center gap-2 text-white relative top-20 ' >
        <div className= " relative top-10 ">
             <h3 className=' text-center text-2xl sm:text-3xl uppercase tracking-tight '>
@@ -64,6 +74,7 @@ interface Courses {
            }
        </div>
      </div>
+   
   )
 
 }
