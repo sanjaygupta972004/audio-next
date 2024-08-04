@@ -1,6 +1,7 @@
 "use client"
 import React,{FormEvent,ChangeEvent, useState} from 'react'
 import { useRouter } from 'next/navigation'
+import { ImSpinner9 } from "react-icons/im";
 
  interface IFormData {
   username:string,
@@ -14,6 +15,7 @@ export default function SignInForm() {
     email:""
    })
    const [error, setError] = useState<string>("")
+   const [isLoading, setIsLoading] = useState<boolean>(false)
    const router = useRouter()
 
   const handlerChange = (e:ChangeEvent<HTMLInputElement>)=>{
@@ -35,7 +37,7 @@ export default function SignInForm() {
    }
     
    try {
-
+     setIsLoading(true)
     const res = await fetch("/api/user",{
       method:"POST",
       headers:{
@@ -47,16 +49,18 @@ export default function SignInForm() {
     const data = await res.json()
     console.log(data)
     if(res.ok){
+      setIsLoading(false)
       router.push("/api/auth/signin")
     }else{
       setError(data.message)
     }
-
     return data
-    
+
    } catch (error) {
      console.log("Something went wrong while submitting form",error)
      setError(error as string)
+   }finally{
+    setIsLoading(false)
    }
 
   }
@@ -96,7 +100,7 @@ export default function SignInForm() {
               </div>
                 <div className='my-3 bg-blue-700 w-full rounded-md hover:bg-blue-600 hover:rounded-lg active:bg-blue-800'>
                 <button className='mx-auto h-10 w-full text-2xl py-[2px] uppercase'>
-                  register 
+                   { isLoading? <ImSpinner9 className=' animate-spin ml-[215px]'/> : "register"}  
                 </button>
               </div>
               <div className=' pl-5 w-full '>
