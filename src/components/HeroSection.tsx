@@ -10,7 +10,7 @@ export default function HeroSection() {
        <Spotlight className=' w-[2px] h-fit right-5'
        fill='gray' />
      <div className=' p-4 relative z-20  w-full text-center'>
-       <h1 className=' mt-15 lg:mt-6 md:mt-0 text-3xl md:text-6xl font-semibold bg-clip-text text-transparent bg-gradient-to-b from-neutral-100 to-neutral-500   ' >
+       <h1 className=' mt-15 lg:mt-6 md:mt-0 text-3xl md:text-6xl font-semibold bg-clip-text text-transparent bg-gradient-to-b from-neutral-100 to-neutral-500 antialiased  ' >
          Master the  art of Music
        </h1>
        <Spotlight className=' w-[10px] h-auto right-10 top-2 md:top-3'
@@ -19,7 +19,7 @@ export default function HeroSection() {
         Dive into our comprehensive music course and transform your musical journey today, whether you.re a  beginner or looking to refine your skills, join us to unlock your true potential..
        </p>
      </div>
-        <div className=' mt-4'>
+        <div className=' mt-4 animate-bounce'>
           <Link href = {"/courses"}>
             <Button
              borderRadius="1.75rem"
