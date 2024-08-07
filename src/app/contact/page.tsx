@@ -6,6 +6,7 @@ import { FaPhoneSquareAlt, FaUser } from "react-icons/fa";
 import { Meteors } from "@/components/ui/meteors";  
 import { useRouter } from 'next/navigation';
 import { ImSpinner9 } from "react-icons/im";
+import { set } from 'mongoose';
 
 interface InputTypes {
   username: string;
@@ -25,6 +26,7 @@ const ContactPage: React.FC = () => {
   const [error, setError] = useState<string>("");
   const[isSuccess,setIsSuccess] = useState<boolean>(false)
 
+
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { id, value } = e.target;
     setFormData((prevData: InputTypes) => ({
@@ -33,23 +35,45 @@ const ContactPage: React.FC = () => {
     }));
   };
 
-  useEffect(() => {
-    if (isSuccess) {
-      router.push("/");
-    }
-  }, [isSuccess, router]);
-
-  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async(e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-     
-   
-    if (formData.username && formData.email && formData.phone) {
-      alert("Do you want to send this message");
-      setIsSuccess(true)
-      setError("null")
-    } else {
-      setError("Input field is not available to send message");
+    setError("")
+    const data = {
+      ...formData,
+      message: message
     }
+   
+    if (!formData.username && !formData.email && !formData.phone) {
+       setError("pls Filled all contact details")
+       return
+    } 
+    if(!message){
+       setError("message field is required")
+    }
+     try {
+      setIsSuccess(true)
+      const res =  await fetch("api/contact",{
+        method:"POST",
+        headers:{
+         "Content-Type":"application/json"
+        },
+        body: JSON.stringify(data)
+      })
+      const responseData = await res.json()
+      if(!res.ok){
+        setError(responseData.message)
+      }
+      if(res.ok){
+        setIsSuccess(false)
+        alert(responseData.message)
+        router.push("/");
+      }
+     } catch (error) {
+      setError(`${(error as Error).message}`)
+     }finally{
+      setIsSuccess(false)
+     }
+     
   };
 
   return (
@@ -117,10 +141,15 @@ const ContactPage: React.FC = () => {
                  onChange={(e)=>(setMessage(e.target.value))}
                ></textarea>
              </div>
-            <div className='my-3 bg-blue-700 w-full rounded-md hover:bg-blue-600 hover:rounded-lg active:bg-blue-800'>
-              <button className='mx-auto h-10 w-full text-2xl py-[2px]'>
-                Send
-              </button>
+             <div className='my-3 bg-blue-700 w-full rounded-md hover:bg-blue-600 hover:rounded-lg active:bg-blue-800'>
+                <button className='mx-auto h-10 w-full text-2xl py-[2px] uppercase'>
+                   { isSuccess? <ImSpinner9 className=' animate-spin ml-[215px]'/> : "register"}  
+                </button>
+              </div>
+            <div className=' pl-5 w-full '>
+              <p className=' text-red-700 text-xl bg-red-100 shadow-xl rounded-md pl-2'>
+                { error && <span> {error} </span> }
+              </p>
             </div>
           </form>
         </div>
